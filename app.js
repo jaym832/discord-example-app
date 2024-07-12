@@ -1,14 +1,18 @@
-import 'dotenv/config';
-import express from 'express';
+import "dotenv/config";
+import express from "express";
 import {
   InteractionType,
   InteractionResponseType,
   InteractionResponseFlags,
   MessageComponentTypes,
   ButtonStyleTypes,
-} from 'discord-interactions';
-import { VerifyDiscordRequest, getRandomEmoji, DiscordRequest } from './utils.js';
-import { getShuffledOptions, getResult } from './game.js';
+} from "discord-interactions";
+import {
+  VerifyDiscordRequest,
+  getRandomEmoji,
+  DiscordRequest,
+} from "./utils.js";
+import { getShuffledOptions, getResult } from "./game.js";
 
 // Create an express app
 const app = express();
@@ -23,7 +27,7 @@ const activeGames = {};
 /**
  * Interactions endpoint URL where Discord will send HTTP requests
  */
-app.post('/interactions', async function (req, res) {
+app.post("/interactions", async function (req, res) {
   // Interaction type and data
   const { type, id, data } = req.body;
 
@@ -42,13 +46,13 @@ app.post('/interactions', async function (req, res) {
     const { name } = data;
 
     // "test" command
-    if (name === 'test') {
+    if (name === "test") {
       // Send a message into the channel where command was triggered from
       return res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
           // Fetches a random emoji to send from a helper function
-          content: 'hello world ' + getRandomEmoji(),
+          content: "hello world " + getRandomEmoji(),
         },
       });
     }
@@ -56,5 +60,5 @@ app.post('/interactions', async function (req, res) {
 });
 
 app.listen(PORT, () => {
-  console.log('Listening on port', PORT);
+  console.log("Listening on port", PORT);
 });
