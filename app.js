@@ -57,6 +57,15 @@ app.post("/interactions", async function (req, res) {
       });
     }
 
+    if (name === "jorgi") {
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: "dont be scared jorgi",
+        },
+      });
+    }
+
     // "challenge" command
     if (name === "challenge" && id) {
       const userId = req.body.member.user.id;
