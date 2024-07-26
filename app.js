@@ -13,6 +13,16 @@ import {
   DiscordRequest,
 } from "./utils.js";
 import { getShuffledOptions, getResult } from "./game.js";
+
+import { fileURLToPath } from "url";
+import path from "path";
+
+// Get the directory name of the current module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const imagePath = path.join(__dirname, "./images/pennywise.jpg");
+
 // Create an express app
 const app = express();
 // Get port, or default to 3000
@@ -69,14 +79,7 @@ app.post("/interactions", async function (req, res) {
       return res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          content: "Here's an image for you:",
-          embeds: [
-            {
-              image: {
-                url: "https://imgflip.com/i/8y7vv5",
-              },
-            },
-          ],
+          content: imagePath,
         },
       });
     }
