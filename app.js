@@ -69,7 +69,14 @@ app.post("/interactions", async function (req, res) {
       return res.send({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          content: "dont be scared jorgi",
+          content: "Here's an image for you:",
+          embeds: [
+            {
+              image: {
+                url: "https://imgflip.com/i/8y7vv5",
+              },
+            },
+          ],
         },
       });
     }
