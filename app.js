@@ -21,7 +21,7 @@ import path from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const imagePath = path.join(__dirname, "./images/pennywise.jpg");
+// const imagePath = path.join(__dirname, "./images/pennywise.jpg");
 
 // Create an express app
 const app = express();
@@ -29,6 +29,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 // Parse request body and verifies incoming requests using discord-interactions package
 app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
+
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 // Store for in-progress games. In production, you'd want to use a DB
 const activeGames = {};
@@ -76,7 +78,19 @@ app.post("/interactions", async function (req, res) {
     }
 
     if (name === "jorgi") {
-      return res.send(imagePath);
+      return res.send({
+        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+        data: {
+          content: "Here's an image for you:",
+          embeds: [
+            {
+              image: {
+                url: "https://discord-server-bot-bender-c006e960c59b.herokuapp.com/images/pennywise.jpg",
+              },
+            },
+          ],
+        },
+      });
     }
 
     // "challenge" command
