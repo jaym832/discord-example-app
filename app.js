@@ -76,12 +76,7 @@ app.post("/interactions", async function (req, res) {
     }
 
     if (name === "jorgi") {
-      return res.send({
-        type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        data: {
-          content: imagePath,
-        },
-      });
+      return res.send(imagePath);
     }
 
     // "challenge" command
