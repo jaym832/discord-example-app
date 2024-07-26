@@ -13,7 +13,6 @@ import {
   DiscordRequest,
 } from "./utils.js";
 import { getShuffledOptions, getResult } from "./game.js";
-
 // Create an express app
 const app = express();
 // Get port, or default to 3000
@@ -23,7 +22,16 @@ app.use(express.json({ verify: VerifyDiscordRequest(process.env.PUBLIC_KEY) }));
 
 // Store for in-progress games. In production, you'd want to use a DB
 const activeGames = {};
+// Schedule a message to be sent every 24 hours
+setInterval(() => {
+  // Replace CHANNEL_ID with the ID of the channel where you want to send the message
+  const channelId = "1020518304231739534";
+  // Replace YOUR_MESSAGE with the message you want to send
+  const message = "Test";
 
+  // Send the message to the channel
+  client.channels.cache.get(channelId).send(message);
+}, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
 /**
  * Interactions endpoint URL where Discord will send HTTP requests
  */
